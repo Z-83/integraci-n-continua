@@ -7,11 +7,12 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
+  verificar_codigo:
     runs-on: ubuntu-latest
 
     steps:
-      - name: mostrar texto
-        run: echo "Hola mundo"
-      - name: fecha
-        run: date
+      - name: Checkout del Repositorio
+        uses: actions/checkout@v4
+
+      - name: Mostrar archivos (Opcional, para depurar)
+        run: ls -R
