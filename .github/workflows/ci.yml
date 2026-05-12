@@ -10,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-  steps:
-    - name: mostrar mensaje
-      run: echo "Hola mundo"
-    - name: fecha
-      run: date
+    steps:
+      - name: mostrar texto
+        run: echo "Hola mundo"
+      - name: fecha
+        run: date
