@@ -14,5 +14,39 @@ jobs:
       - name: Checkout del Repositorio
         uses: actions/checkout@v4
 
-      - name: Mostrar archivos (Opcional, para depurar)
+      - name: Mostrar archivos
         run: ls -R
+
+      - name: Verificar que existen home.html y styles.css
+        run:
+          test -f home.html && echo "✅ home.html existe" || (echo "❌ home.html NO encontrado" && exit 1)
+          test -f styles.css && echo "✅ styles.css existe" || (echo "❌ styles.css NO encontrado" && exit 1)
+
+  desplegar_pagina:
+    needs: verificar_codigo
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout del Repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir Artifactos de Despliegue
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './'
+
+      - name: Iniciar Despliegue a Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
