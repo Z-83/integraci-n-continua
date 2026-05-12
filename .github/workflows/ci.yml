@@ -18,7 +18,7 @@ jobs:
         run: ls -R
 
       - name: Verificar que existen home.html y styles.css
-        run:
+        run: |
           test -f home.html && echo "✅ home.html existe" || (echo "❌ home.html NO encontrado" && exit 1)
           test -f styles.css && echo "✅ styles.css existe" || (echo "❌ styles.css NO encontrado" && exit 1)
 
